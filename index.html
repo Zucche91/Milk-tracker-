@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Biberon Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#f3f8ff;--card:#fff;--text:#203049;--muted:#6f7f95;--line:#dbe7f4;--blue1:#4f97e8;--blue2:#8bc2ff;--blue3:#79b8ff;--shadow:0 10px 24px rgba(79,151,232,.10);}*{box-sizing:border-box}body{margin:0;font-family:Nunito,system-ui,sans-serif;background:radial-gradient(circle at top,#fff 0,#f3f8ff 35%,#e7f0fb 100%);color:var(--text)}.app{max-width:980px;margin:0 auto;padding:10px}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}.topart{display:flex;gap:10px;align-items:center}.icon{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#d9ecff,#dce7ff);display:grid;place-items:center;font-size:1.2rem;box-shadow:var(--shadow)}h1{margin:0;font-size:1.3rem;line-height:1.1}.pill{padding:9px 11px;border:1px solid var(--line);background:#fff;border-radius:999px;font-size:.84rem;color:var(--muted);box-shadow:var(--shadow)}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:12px}@media (max-width:860px){.grid{grid-template-columns:1fr}}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:var(--shadow)}.card h2{margin:0 0 10px;font-size:1rem}.summaryHero{background:linear-gradient(135deg,#f8fcff,#eef7ff);border:1px solid #dcecf7;border-radius:22px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden}.summaryHero:before{content:"";position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle, rgba(79,151,232,.18) 0, rgba(79,151,232,0) 70%)}.summaryTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.summaryTitle{font-size:.82rem;color:#6f7f95;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.summaryMain{font-size:1.6rem;font-weight:800;letter-spacing:-.04em;margin-top:4px}.summarySub{color:#6f7f95;font-size:.84rem;margin-top:3px}.progressWrap{margin-top:12px;background:#eaf4fb;border:1px solid #dcecf7;border-radius:999px;height:14px;overflow:hidden}.progressFill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#4f97e8,#79b8ff,#b8d8ff)}.summaryGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}@media (max-width:520px){.summaryGrid{grid-template-columns:1fr}}.miniStat{background:#fff;border:1px solid #dbe7f4;border-radius:18px;padding:10px 12px}.miniStat .k{font-size:.76rem;color:#6f7f95;font-weight:700;text-transform:uppercase;letter-spacing:.06em}.miniStat .v{font-size:1.05rem;font-weight:800;margin-top:4px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}@media (max-width:560px){.stats{grid-template-columns:1fr}}.stat{border:1px solid #dbe7f4;border-radius:18px;padding:12px;background:linear-gradient(180deg,#fff,#f7fbff)}.label{color:var(--muted);font-size:.78rem;margin-bottom:5px}.value{font-size:1.18rem;font-weight:800;letter-spacing:-.03em}.meter{height:12px;background:#eaf4fb;border-radius:999px;overflow:hidden;border:1px solid #dbe7f4;margin-top:8px}.meter>div{height:100%;background:linear-gradient(90deg,#4f97e8,#79b8ff,#b8d8ff);width:0%}.inputs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}@media (max-width:560px){.inputs{grid-template-columns:1fr}}label{display:block;font-size:.79rem;color:var(--muted);margin-bottom:5px}input,button{width:100%;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:14px;padding:12px 13px;font-size:1rem;outline:none}input:focus{border-color:#9fc2e8;box-shadow:0 0 0 4px rgba(79,151,232,.09)}button{font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#4f97e8,#79b8ff);color:#fff;border:none}.ghost{background:#fff;color:#3e6ea8}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.smallrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}@media (max-width:560px){.smallrow{grid-template-columns:1fr}}.tiny{font-size:.78rem;color:var(--muted)}.timeline{margin-top:10px;display:flex;flex-direction:column;gap:8px;max-height:360px;overflow:auto;padding-right:2px}.feed{display:flex;justify-content:space-between;gap:10px;padding:11px 12px;border:1px solid #dbe7f4;border-radius:16px;background:#fbfdff}.feed strong{display:block}.feed small{color:var(--muted)}.badge{align-self:center;padding:7px 10px;border-radius:999px;background:linear-gradient(90deg,#eef5fc,#f3f8ff);color:#3e6ea8;font-size:.78rem;font-weight:800}.mini{width:auto;padding:7px 10px;font-size:.78rem;border-radius:999px}.danger{border-color:#9fc2e8;color:#3e6ea8}.chartbox{height:250px}.footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:10px}@media (max-width:520px){.app{padding:8px}.card{padding:12px}.top{margin-bottom:8px}.pill{font-size:.78rem;padding:8px 10px}.chartbox{height:220px}.timeline{max-height:300px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="topart"><div class="icon">🍼</div><div><h1>Biberon Tracker</h1></div></div>
+    <div class="pill" id="todayLabel"></div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h2>Riepilogo di oggi</h2>
+      <div class="summaryHero">
+        <div class="summaryTop">
+          <div><div class="summaryTitle">Latte assunto</div><div class="summaryMain" id="todayMl">0 ml</div><div class="summarySub">Obiettivo giornaliero: <span id="goalLabel">0 ml</span></div></div>
+          <div class="pill" style="margin:0">Oggi</div>
+        </div>
+        <div class="progressWrap"><div class="progressFill" id="meterFill"></div></div>
+        <div class="summaryGrid">
+          <div class="miniStat"><div class="k">Biberon</div><div class="v" id="todayBottles">0</div></div>
+          <div class="miniStat"><div class="k">Ultimo pasto</div><div class="v" id="lastFeed">—</div></div>
+          <div class="miniStat"><div class="k">Settimana</div><div class="v" id="weekTotal">0 ml</div></div>
+          <div class="miniStat"><div class="k">Data</div><div class="v" id="dateLabel">—</div></div>
+        </div>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+    <div class="card">
+      <h2>Impostazioni e registrazione</h2>
+      <div class="inputs">
+        <div><label>Obiettivo giornaliero (ml)</label><input id="dailyGoal" type="number" min="0" value="750"></div>
+        <div><label>Capacità biberon (ml)</label><input id="bottleSize" type="number" min="0" value="120"></div>
+        <div><label>Latte consumato (ml)</label><input id="milkMl" type="number" min="0" placeholder="Es. 90"></div>
+      </div>
+      <div class="actions">
+        <button class="primary" id="addFeed">Aggiungi pasto</button>
+        <button class="ghost" id="resetToday">Azzera oggi</button>
+      </div>
+      <div class="actions">
+        <button class="ghost" id="saveSettings">Salva impostazioni</button>
+        <button class="ghost" id="clearAll">Cancella tutto</button>
+      </div>
+      <div style="margin-top:12px">
+        <h2 style="margin-top:0">Grafico settimanale</h2>
+        <div class="chartbox"><canvas id="weekChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">I dati restano salvati nel browser del dispositivo.</div>
+</div>
+<script>
+const LS='biberon_tracker_v5';
+const el=id=>document.getElementById(id);
+const now=()=>new Date();
+const pad=n=>String(n).padStart(2,'0');
+const fmtDate=d=>`${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
+const todayKey=()=>new Date().toISOString().slice(0,10);
+const timeStr=d=>`${pad(d.getHours())}:${pad(d.getMinutes())}`;
+let state=JSON.parse(localStorage.getItem(LS)||'null')||{settings:{dailyGoal:750,bottleSize:120},feeds:{}}; let editIndex=null;
+const save=()=>localStorage.setItem(LS,JSON.stringify(state));
+function ensureToday(){const k=todayKey(); if(!state.feeds[k]) state.feeds[k]=[];}
+function bottleCount(ml){const size=+el('bottleSize').value||1; return Math.ceil(ml/size);} 
+function todayStats(){ensureToday(); const arr=state.feeds[todayKey()]; return {ml:arr.reduce((a,b)=>a+b.ml,0), bottles:arr.reduce((a,b)=>a+b.bottles,0), last:arr[0]?arr[0].time:'—'};}
+function weekData(){const out=[]; const d=new Date(); d.setHours(0,0,0,0); for(let i=6;i>=0;i--){const x=new Date(d); x.setDate(d.getDate()-i); const k=x.toISOString().slice(0,10); out.push({label:`${pad(x.getDate())}/${pad(x.getMonth()+1)}`, ml:(state.feeds[k]||[]).reduce((a,b)=>a+b.ml,0)});} return out;}
+function render(){ensureToday(); const s=todayStats(); const goal=+el('dailyGoal').value||1; const pct=Math.min(100,Math.round((s.ml/goal)*100)); el('todayLabel').textContent=fmtDate(new Date()); el('todayMl').textContent=`${s.ml} ml`; el('todayBottles').textContent=s.bottles; el('goalLabel').textContent=`${+el('dailyGoal').value||0} ml`; el('meterFill').style.width=pct+'%'; el('lastFeed').textContent=s.last; el('weekTotal').textContent=`${weekData().reduce((a,b)=>a+b.ml,0)} ml`; el('dateLabel').textContent=fmtDate(new Date()); el('timeline').innerHTML=(state.feeds[todayKey()]||[]).map((f,i)=>`<div class='feed'><div><strong>${f.ml} ml • ${f.bottles} biberon${f.bottles>1?'i':''}</strong><small>${f.time}</small></div><div style='display:flex;gap:6px;align-items:center'><div class='badge'>${f.rate}</div><button class='mini' data-edit='${i}'>Modifica</button><button class='mini danger' data-del='${i}'>Elimina</button></div></div>`).join('')||'<div class="feed"><div><strong>Nessun pasto registrato</strong><small>Il primo inserimento apparirà qui.</small></div><div class="badge">Oggi</div></div>'; chart.data.labels=weekData().map(x=>x.label); chart.data.datasets[0].data=weekData().map(x=>x.ml); chart.update(); save();}
+function addFeed(){const ml=+el('milkMl').value; if(!ml||ml<0) return; ensureToday(); const bottles=bottleCount(ml); const item={ml,bottles,time:timeStr(now()),rate:`${Math.round(ml/bottles)} ml/bib.`}; const arr=state.feeds[todayKey()]; if(editIndex===null) arr.unshift(item); else arr[editIndex]=item; editIndex=null; el('milkMl').value=''; render();}
+function resetToday(){state.feeds[todayKey()]=[]; editIndex=null; render();}
+function clearAll(){if(confirm('Cancellare tutti i dati?')){state={settings:{dailyGoal:+el('dailyGoal').value||750,bottleSize:+el('bottleSize').value||120},feeds:{}}; editIndex=null; render();}}
+function saveSettings(){state.settings.dailyGoal=+el('dailyGoal').value||0; state.settings.bottleSize=+el('bottleSize').value||0; render();}
+el('dailyGoal').value=state.settings.dailyGoal||750; el('bottleSize').value=state.settings.bottleSize||120;
+const chart=new Chart(el('weekChart'),{type:'line',data:{labels:[],datasets:[{label:'ml per giorno',data:[],tension:.35,fill:true,borderColor:'#4f97e8',backgroundColor:'rgba(79,151,232,.14)',pointBackgroundColor:'#4f97e8',pointBorderColor:'#fff',pointRadius:5,borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#6f7f95'},grid:{display:false}},y:{ticks:{color:'#6f7f95'},grid:{color:'#dfeaf6'}}}}});
+el('addFeed').onclick=addFeed; el('resetToday').onclick=resetToday; el('saveSettings').onclick=saveSettings; el('clearAll').onclick=clearAll; el('milkMl').addEventListener('keydown',e=>{if(e.key==='Enter') addFeed()}); el('timeline').addEventListener('click',e=>{const a=e.target.closest('[data-edit]'); const d=e.target.closest('[data-del]'); if(a){editIndex=+a.dataset.edit; const item=(state.feeds[todayKey()]||[])[editIndex]; el('milkMl').value=item.ml; render(); return;} if(d){const idx=+d.dataset.del; if(confirm('Eliminare questo pasto?')){state.feeds[todayKey()].splice(idx,1); editIndex=null; render();}}}); render();
+</script>
+</body>
+</html>
